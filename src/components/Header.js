@@ -17,7 +17,7 @@ const Header = ({ searchValue, setSearchValue }) => {
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         <div className='header__cart'>
           <Link to='/cart' className='button button--cart'>
-            <span>520 Gel</span>
+            <span>521 Gel</span>
             <div className='button__delimiter'></div>
             <svg
               width='18'
