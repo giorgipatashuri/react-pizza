@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Categories = ({ value, onClickCategory }) => {
-  const [activeIndex, setactiveIndex] = useState(0);
+  const [activeIndex, setAgctiveIndex] = useState(0);
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Spicy', 'exclusives'];
   return (
     <div className='categories'>
