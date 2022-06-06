@@ -17,7 +17,7 @@ function App() {
           <div className='content'>
             <div className='container'>
               <Routes>
-                <Route exact path=':/' element={<Home searchValue={searchValue} />} />
+                <Route exact path='/' element={<Home searchValue={searchValue} />} />
                 <Route path='/cart' element={<Cart />} />
                 {/* <Route path='*' element={<NotFound />} /> */}
               </Routes>
