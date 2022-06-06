@@ -5,3 +5,4 @@ const NotFound = () => {
 };
 
 export default NotFound;
+// "homepage": "https://giorgipatashuri.github.io/react-pizza/",

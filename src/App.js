@@ -17,7 +17,7 @@ function App() {
           <div className='content'>
             <div className='container'>
               <Routes>
-                <Route exact path='react-pizza/' element={<Home searchValue={searchValue} />} />
+                <Route exact path='/react-pizza/' element={<Home searchValue={searchValue} />} />
                 <Route path='/cart' element={<Cart />} />
               </Routes>
             </div>
