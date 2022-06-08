@@ -7,7 +7,7 @@ const Header = ({ searchValue, setSearchValue }) => {
       <div className='container'>
         <Link to='/'>
           <div className='header__logo'>
-            <img width='38' src='../assets/img/pizza-logo.svg' alt='Pizza logo' />
+            <img width='38' src='assets/img/pizza-logo.svg' alt='Pizza logo' />
             <div>
               <h1>React Pizza</h1>
               <p>Best Pizza's</p>
