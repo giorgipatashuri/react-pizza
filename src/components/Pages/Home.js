@@ -8,10 +8,9 @@ import { setSort } from '../../redux/slices/filterSlice';
 
 const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
-  // const [sort, setSort] = useState({ name: 'popularity', sortCategory: 'rating' });
-  const [isDesc, setIsDesc] = useState(true);
   const categoryId = useSelector((state) => state.filterSlice.categoryId);
   const sort = useSelector((state) => state.filterSlice.sort);
+  const isDesc = useSelector((state) => state.filterSlice.isDesc);
   const dispatch = useDispatch();
   useEffect(() => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -27,14 +26,13 @@ const Home = ({ searchValue }) => {
     dispatch(setCategoryId(id));
   };
   const onClickSort = (props) => {
-    console.log(props);
     dispatch(setSort(props));
   };
   return (
     <>
       <div className='content__top'>
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Sort value={sort} onChangeSort={onClickSort} isDesc={isDesc} setIsDesc={setIsDesc} />
+        <Sort value={sort} onChangeSort={onClickSort} />
       </div>
       <h2 className='content__title'>All Pizza's</h2>
       <div className='content__items'>

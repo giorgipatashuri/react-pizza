@@ -26,8 +26,8 @@ const Search = () => {
         <line
           fill='none'
           stroke='#000000'
-          stroke-miterlimit='10'
-          stroke-width='4'
+          strokeMiterlimit='10'
+          strokeWidth='4'
           x1='32.229'
           x2='45.5'
           y1='32.229'

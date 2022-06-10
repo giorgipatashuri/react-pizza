@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
-
-const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
-  const [count, setcount] = useState(0);
+import { useDispatch, useSelector } from 'react-redux';
+import { addCartItem } from '../redux/slices/cartSlice';
+const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
   const [activeType, setactiveType] = useState(0);
   const [activeSize, setactiveSize] = useState(0);
+  const cartItems = useSelector((state) => state.cartSlice.cartItems.find((obj) => obj.id === id));
   const pizzaTypes = ['tiny', 'traditional'];
+  const dispatch = useDispatch();
+  const addedCount = cartItems ? cartItems.count : 0;
+  const onClickAdd = () => {
+    const item = {
+      // id: new Date().toISOString(),
+      id,
+      title,
+      price,
+      imageUrl,
+      size: sizes[activeSize],
+      type: pizzaTypes[activeType],
+      indificator: `${title}_${sizes[activeSize]}_${pizzaTypes[activeType]}`,
+    };
+    dispatch(addCartItem(item));
+  };
   return (
     <div className='pizza-block'>
       <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
@@ -22,6 +38,7 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
         <ul>
           {sizes.map((size, index) => (
             <li
+              key={index}
               onClick={() => setactiveSize(index)}
               className={activeSize === index ? 'active' : ''}>
               {size} cm
@@ -31,7 +48,7 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
       </div>
       <div className='pizza-block__bottom'>
         <div className='pizza-block__price'>от {price} Gel</div>
-        <div className='button button--outline button--add'>
+        <div onClick={onClickAdd} className='button button--outline button--add'>
           <svg
             width='12'
             height='12'
@@ -43,8 +60,8 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
               fill='white'
             />
           </svg>
-          <span onClick={() => setcount(count + 5)}>Add</span>
-          <i>{count}</i>
+          <span>Add</span>
+          {addedCount > 0 ? <i>{addedCount}</i> : <></>}
         </div>
       </div>
     </div>

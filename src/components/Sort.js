@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-const Sort = ({ value, onChangeSort, isDesc, setIsDesc }) => {
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsDesc } from '../redux/slices/filterSlice';
+
+const Sort = ({ value, onChangeSort }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selected, setSelected] = useState({
-    популярности: 'rating',
-  });
+  const ref = useRef();
+  const dispatch = useDispatch();
+  const Desc = useSelector((state) => state.filterSlice.isDesc);
   const list = [
     { name: 'popularity', sortCategory: 'rating' },
     { name: 'by price', sortCategory: 'price' },
@@ -14,11 +17,25 @@ const Sort = ({ value, onChangeSort, isDesc, setIsDesc }) => {
     onChangeSort(props);
     setIsVisible(false);
   };
+  const setDesc = () => {
+    dispatch(setIsDesc(!Desc));
+  };
+  useEffect(() => {
+    const clickEvent = (event) => {
+      if (!event.path.includes(ref.current)) {
+        setIsVisible(false);
+      }
+    };
+    document.body.addEventListener('click', clickEvent);
 
+    return () => {
+      document.body.removeEventListener('click', clickEvent);
+    };
+  }, []);
   return (
-    <div className='sort'>
+    <div ref={ref} className='sort'>
       <div className='sort__label'>
-        <div style={{ cursor: 'pointer' }} onClick={() => setIsDesc(!isDesc)}>
+        <div style={{ cursor: 'pointer' }} onClick={setDesc}>
           <svg
             width='10'
             height='6'
@@ -38,9 +55,6 @@ const Sort = ({ value, onChangeSort, isDesc, setIsDesc }) => {
       {isVisible ? (
         <div className='sort__popup'>
           <ul>
-            {/* <li className='active'>популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li> */}
             {list.map((obj, i) => (
               <li
                 className={value.sortCategory === obj.sortCategory ? 'active' : ''}
