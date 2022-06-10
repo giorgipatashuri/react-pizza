@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTotalPrice } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
+import { setTotalPrice, clearCartItems } from '../../redux/slices/cartSlice';
 import CartEmpty from '../CartEmpty';
 import CartItem from '../CartItem';
-import { useEffect } from 'react';
-
 const Cart = () => {
   const items = useSelector((state) => state.cartSlice.cartItems);
+  const totalAmount = useSelector((state) => state.cartSlice.totalAmount);
   const totalPrice = items.reduce((sum, obj) => {
     return obj.price * obj.count + sum;
   }, 0);
-  const totalAmmout = items.reduce((sum, obj) => {
-    return obj.count + sum;
-  }, 0);
+  const cleanItems = () => {
+    dispatch(clearCartItems);
+  };
   const dispatch = useDispatch();
-  console.log(totalAmmout);
   useEffect(() => {
     dispatch(setTotalPrice(totalPrice));
   }, [totalPrice]);
@@ -108,14 +107,14 @@ const Cart = () => {
             <div className='cart__bottom'>
               <div className='cart__bottom-details'>
                 <span>
-                  total pizzas: <b>{totalAmmout} pieces.</b>
+                  total pizzas: <b>{totalAmount} pieces.</b>
                 </span>
                 <span>
                   Order Price: <b>{totalPrice} Gel</b>
                 </span>
               </div>
               <div className='cart__bottom-buttons'>
-                <a href='/react-pizza' className='button button--outline button--add go-back-btn'>
+                <Link to='/react-pizza' className='button button--outline button--add go-back-btn'>
                   <svg
                     width='8'
                     height='14'
@@ -131,7 +130,7 @@ const Cart = () => {
                     />
                   </svg>
                   <span>Go Back</span>
-                </a>
+                </Link>
                 <div className='button pay-btn'>
                   <span>Order Now</span>
                 </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addCartItem, descrAmmout, removeCartItem } from '../redux/slices/cartSlice';
+import { addCartItem, descrAmount, removeCartItem } from '../redux/slices/cartSlice';
 const CartItem = ({ id, title, price, imageUrl, size, type, count, indificator }) => {
   const dispatch = useDispatch();
   const inc = () => {
     dispatch(addCartItem({ indificator }));
   };
   const decr = () => {
-    dispatch(descrAmmout({ indificator }));
+    dispatch(descrAmount({ indificator }));
   };
   const removeItem = () => {
     dispatch(removeCartItem({ indificator }));

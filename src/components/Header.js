@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 const Header = ({ searchValue, setSearchValue }) => {
-  const { cartItems, totalPrice, totalAmmout } = useSelector((state) => state.cartSlice);
+  const { totalPrice, totalAmount } = useSelector((state) => state.cartSlice);
   return (
     <div className='header'>
       <div className='container'>
@@ -49,7 +49,7 @@ const Header = ({ searchValue, setSearchValue }) => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>{totalAmmout}</span>
+            <span>{totalAmount}</span>
           </Link>
         </div>
       </div>
