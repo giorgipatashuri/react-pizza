@@ -35,6 +35,9 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (obj) => obj.indificator !== action.payload.indificator,
       );
+      state.totalAmount = state.cartItems.reduce((sum, obj) => {
+        return obj.count + sum;
+      }, 0);
     },
     clearCartItems(state) {
       state.cartItems = [];
