@@ -2,9 +2,6 @@
 
 🍕 Pizza order Website 🍕
 
-## Available Scripts
-
-In the project directory, you can run:
 
 ### Languages and Tools:
 
