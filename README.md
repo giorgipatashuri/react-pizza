@@ -2,6 +2,7 @@
 
 🍕 Pizza order Website 🍕
 
+## Try it: https://giorgipatashuri.github.io/react-pizza/
 
 ### Languages and Tools:
 
