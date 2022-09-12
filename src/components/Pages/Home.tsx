@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Categories from '../Categories';
 import Sort from '../Sort';
 import PizzaBlock from '../PizzaBlock';
+import { searchContext } from '../../App';
 import { setCategoryId } from '../../redux/slices/filterSlice';
 import { setSort } from '../../redux/slices/filterSlice';
-
-const Home = ({ searchValue }) => {
-  const [items, setItems] = useState([]);
-  const categoryId = useSelector((state) => state.filterSlice.categoryId);
-  const sort = useSelector((state) => state.filterSlice.sort);
-  const isDesc = useSelector((state) => state.filterSlice.isDesc);
+import { RootState } from '../../redux/store';
+export interface Ipizza {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+}
+const Home = () => {
+  const { searchValue } = useContext(searchContext);
+  const [items, setItems] = useState<Ipizza[]>([]);
+  const categoryId = useSelector((state: RootState) => state.filterSlice.categoryId);
+  const sort = useSelector((state: RootState) => state.filterSlice.sort);
+  const isDesc = useSelector((state: RootState) => state.filterSlice.isDesc);
   const dispatch = useDispatch();
   useEffect(() => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -22,10 +34,10 @@ const Home = ({ searchValue }) => {
       .then((res) => res.json())
       .then((item) => setItems(item));
   }, [categoryId, sort, isDesc]);
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onClickSort = (props) => {
+  const onClickSort = (props: { name: string; sortCategory: string }) => {
     dispatch(setSort(props));
   };
   return (

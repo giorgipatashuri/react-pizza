@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 
-const Categories = ({ value, onClickCategory }) => {
+interface CategoriesProps {
+  value: number;
+  onClickCategory: (id: number) => void;
+}
+
+const Categories: FC<CategoriesProps> = ({ value, onClickCategory }) => {
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Spicy', 'exclusives'];
   return (
     <div className='categories'>

@@ -2,11 +2,19 @@ import Header from './components/Header';
 import './scss/app.scss';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Pages/Home';
-import NotFound from './components/Pages/NotFound';
 import Cart from './components/Pages/Cart';
-import { useState, React } from 'react';
+import React, { useState } from 'react';
 import { createContext } from 'react';
-export const searchContext = createContext();
+
+interface IsearchContext {
+  searchValue: string;
+  setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const searchContext = createContext<IsearchContext>({
+  searchValue: '123',
+});
+
 function App() {
   const [searchValue, setSearchValue] = useState('');
   return (
@@ -17,7 +25,7 @@ function App() {
           <div className='content'>
             <div className='container'>
               <Routes>
-                <Route exact path='/react-pizza/' element={<Home searchValue={searchValue} />} />
+                <Route path='/' element={<Home />} />
                 <Route path='/cart' element={<Cart />} />
               </Routes>
             </div>

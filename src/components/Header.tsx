@@ -1,22 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RootState } from '../redux/store';
 import Search from './Search';
-const Header = ({ searchValue, setSearchValue }) => {
-  const { totalPrice, totalAmount } = useSelector((state) => state.cartSlice);
+const Header = () => {
+  const { totalPrice, totalAmount } = useSelector((state: RootState) => state.cartSlice);
   return (
     <div className='header'>
       <div className='container'>
-        <Link to='/react-pizza'>
+        <Link to='/'>
           <div className='header__logo'>
-            <img width='38' src='assets/img/pizza-logo.svg' alt='Pizza logo' />
+            <img width='38' src='./assets/img/pizza-logo.svg' alt='Pizza logo' />
             <div>
               <h1>React Pizza</h1>
               <p>Best Pizza's</p>
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <div className='header__cart'>
           <Link to='/cart' className='button button--cart'>
             <span>{totalPrice} Gel</span>

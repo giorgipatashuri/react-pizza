@@ -36,12 +36,12 @@ const Search = () => {
       </svg>
       <input
         value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => setSearchValue?.(event.target.value)}
         type='text'
       />
       {searchValue && (
         <svg
-          onClick={() => setSearchValue('')}
+          onClick={() => setSearchValue?.('s')}
           className='closeIcon'
           height='48'
           viewBox='0 0 48 48'

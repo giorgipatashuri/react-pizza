@@ -2,17 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setTotalPrice, clearCartItems } from '../../redux/slices/cartSlice';
+import { RootState } from '../../redux/store';
 import CartEmpty from '../CartEmpty';
 import CartItem from '../CartItem';
 const Cart = () => {
-  const items = useSelector((state) => state.cartSlice.cartItems);
-  const totalAmount = useSelector((state) => state.cartSlice.totalAmount);
+  const items = useSelector((state: RootState) => state.cartSlice.cartItems);
+  const totalAmount = useSelector((state: RootState) => state.cartSlice.totalAmount);
   const totalPrice = items.reduce((sum, obj) => {
     return obj.price * obj.count + sum;
   }, 0);
-  const cleanItems = () => {
-    dispatch(clearCartItems);
-  };
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setTotalPrice(totalPrice));
@@ -21,7 +20,9 @@ const Cart = () => {
   if (!totalPrice) {
     return <CartEmpty />;
   }
-
+  const onClearClick = () => {
+    dispatch(clearCartItems());
+  };
   return (
     <div>
       <div className='content'>
@@ -59,7 +60,7 @@ const Cart = () => {
                 </svg>
                 Cart
               </h2>
-              <div className='cart__clear'>
+              <div onClick={onClearClick} className='cart__clear'>
                 <svg
                   width='20'
                   height='20'
@@ -114,7 +115,7 @@ const Cart = () => {
                 </span>
               </div>
               <div className='cart__bottom-buttons'>
-                <Link to='/react-pizza' className='button button--outline button--add go-back-btn'>
+                <Link to='/' className='button button--outline button--add go-back-btn'>
                   <svg
                     width='8'
                     height='14'

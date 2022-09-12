@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsDesc } from '../redux/slices/filterSlice';
-
-const Sort = ({ value, onChangeSort }) => {
+interface Isort {
+  name: string;
+  sortCategory: string;
+}
+type M = MouseEvent & {
+  path: Node[];
+};
+interface sortProps {
+  value: Isort;
+  onChangeSort: (value: Isort) => void;
+}
+const Sort: FC<sortProps> = ({ value, onChangeSort }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const Desc = useSelector((state) => state.filterSlice.isDesc);
-  const list = [
+  const Desc = useSelector((state: any) => state.filterSlice.isDesc);
+  const list: Isort[] = [
     { name: 'popularity', sortCategory: 'rating' },
     { name: 'by price', sortCategory: 'price' },
     { name: 'alphabet', sortCategory: 'title' },
   ];
-  const selectSort = (props) => {
+  const selectSort = (props: Isort) => {
     onChangeSort(props);
     setIsVisible(false);
   };
@@ -21,8 +31,9 @@ const Sort = ({ value, onChangeSort }) => {
     dispatch(setIsDesc(!Desc));
   };
   useEffect(() => {
-    const clickEvent = (event) => {
-      if (!event.path.includes(ref.current)) {
+    const clickEvent = (event: MouseEvent) => {
+      const _event = event as M;
+      if (ref.current && !_event.path.includes(ref.current)) {
         setIsVisible(false);
       }
     };
